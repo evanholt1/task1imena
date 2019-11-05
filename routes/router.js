@@ -13,4 +13,6 @@ router.post('/products/create',controller.post_productCreate);
 
 router.put('/products/update',controller.put_productUpdate);
 
+router.delete('/products/delete',controller.delete_productDelete);
+
 module.exports = router;

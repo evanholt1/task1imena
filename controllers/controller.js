@@ -49,3 +49,8 @@ exports.put_productUpdate = (req,res)=> {
   });
   
 };
+
+exports.delete_productDelete = (req,res) => {
+  Product.deleteOne({name:req.body.name}).exec()
+  .then(res.send("Product Deleted"));
+};
