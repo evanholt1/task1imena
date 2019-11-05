@@ -15,8 +15,8 @@ mongoose.connect(process.env.MONGO_CONNECT,{useNewUrlParser:true,useUnifiedTopol
   console.log("Database Connected");
 
   app.use(router);
-  app.use(express.static(__dirname+"/public"));
-  
+
+
   const PORT = process.env.PORT || 5000;
   
   app.listen(PORT,console.log(`Server started on port ${PORT}`));

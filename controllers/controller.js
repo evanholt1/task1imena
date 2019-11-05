@@ -1,4 +1,7 @@
-exports.getRoot = (req,res)=> {
+// file imports
+const Product = require('../models/Product');
+
+exports.get_root = (req,res)=> {
   // const product = new Product({
   //   name:"Test",
   //   price:5
@@ -9,4 +12,14 @@ exports.getRoot = (req,res)=> {
   // });
   //res.send("HRE");
   res.render('index');
+};
+
+exports.post_root = (req,res)=> {
+  Product.find().exec()
+  .then((products)=> {
+    res.render('index',{
+    productList:products
+    });
+  });
+  
 };
