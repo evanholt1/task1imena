@@ -23,3 +23,14 @@ exports.post_root = (req,res)=> {
   });
   
 };
+
+exports.post_productCreate = (req,res) => {
+  const newProduct = new Product({
+    name:req.body.name,
+    price:req.body.price
+  });
+  newProduct.save()
+  .then(()=>{
+    res.send("Product Added");
+  });
+};

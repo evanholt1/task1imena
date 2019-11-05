@@ -2,7 +2,7 @@
 const express = require('express')
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
-
+const bodyParser = require('body-parser');
 // file imports
 const router = require('./routes/router');
 
@@ -12,10 +12,9 @@ app.set('view engine', 'ejs');
 
 mongoose.connect(process.env.MONGO_CONNECT,{useNewUrlParser:true,useUnifiedTopology: true })
 .then(()=>{
-  console.log("Database Connected");
-
+  app.use(bodyParser.urlencoded({extended:false}));
   app.use(router);
-
+  
 
   const PORT = process.env.PORT || 5000;
   

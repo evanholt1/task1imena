@@ -9,4 +9,6 @@ router.get('/',controller.get_root);
 
 router.post('/',controller.post_root);
 
+router.post('/products/create',controller.post_productCreate);
+
 module.exports = router;
