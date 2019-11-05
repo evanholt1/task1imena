@@ -34,3 +34,18 @@ exports.post_productCreate = (req,res) => {
     res.send("Product Added");
   });
 };
+
+exports.put_productUpdate = (req,res)=> {
+  let updatedName,updatedPrice;
+  if(req.body.name.length !== 0) updatedName = req.body.name;
+  if(req.body.price.length !== 0) updatedPrice = req.body.price;
+  
+  Product.findOne({name:req.body.oldName}).exec()
+  .then((product)=> {
+    if(updatedName)product.name=updatedName;
+    if(updatedPrice)product.price=updatedPrice;
+    product.save()
+    .then(res.send("Product Updated"));
+  });
+  
+};

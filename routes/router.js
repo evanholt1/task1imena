@@ -11,4 +11,6 @@ router.post('/',controller.post_root);
 
 router.post('/products/create',controller.post_productCreate);
 
+router.put('/products/update',controller.put_productUpdate);
+
 module.exports = router;
