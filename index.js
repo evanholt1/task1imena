@@ -8,12 +8,14 @@ const router = require('./routes/router');
 
 const app = express();
 dotenv.config();
+app.set('view engine', 'ejs');
 
 mongoose.connect(process.env.MONGO_CONNECT,{useNewUrlParser:true,useUnifiedTopology: true })
 .then(()=>{
   console.log("Database Connected");
 
   app.use(router);
+  app.use(express.static(__dirname+"/public"));
   
   const PORT = process.env.PORT || 5000;
   

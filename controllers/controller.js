@@ -7,5 +7,6 @@ exports.getRoot = (req,res)=> {
   // .then(()=> {
   //   res.send("Works.Check DB");
   // });
-  res.send("HRE");
+  //res.send("HRE");
+  res.render('index');
 };
