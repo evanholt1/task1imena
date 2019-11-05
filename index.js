@@ -4,26 +4,16 @@ const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 
 // file imports
+const router = require('./routes/router');
 
 const app = express();
 dotenv.config();
 
-
-
 mongoose.connect(process.env.MONGO_CONNECT,{useNewUrlParser:true,useUnifiedTopology: true })
 .then(()=>{
   console.log("Database Connected");
-  app.get('/',(req,res)=> {
-    // const product = new Product({
-    //   name:"Test",
-    //   price:5
-    // });
-    // product.save()
-    // .then(()=> {
-    //   res.send("Works.Check DB");
-    // });
-    res.send("HERE");
-  });
+
+  app.use(router);
   
   const PORT = process.env.PORT || 5000;
   
