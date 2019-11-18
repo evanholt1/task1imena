@@ -3,7 +3,6 @@ const express = require('express')
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-var methodOverride = require('method-override');
 
 // file imports
 const router = require('./routes/router');
@@ -15,8 +14,9 @@ app.set('view engine', 'ejs');
 mongoose.connect(process.env.MONGO_CONNECT,{useNewUrlParser:true,useUnifiedTopology: true })
 .then(()=>{
   app.use(bodyParser.urlencoded({extended:false}));
-  app.use(methodOverride('_method'));
+  app.use(bodyParser.json());
   app.use(router);
+  //app.use(express.static('public'));
   
 
   const PORT = process.env.PORT || 5000;

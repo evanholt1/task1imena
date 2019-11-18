@@ -1,56 +1,41 @@
-// file imports
-const Product = require('../models/Product');
+//  npm imports
+const fs = require('fs');
+const { convertDeltaToHtml } = require('node-quill-converter');
+const path = require('path');
 
 exports.get_root = (req,res)=> {
-  // const product = new Product({
-  //   name:"Test",
-  //   price:5
+  //res.render('index');
+  //res.sendFile('homepage.html',{ root: path.join(__dirname,'../files') });
+  let html;
+  // fs.readFile(path.join(__dirname,'../files','homepage.txt'), 'utf8',(err,data)=> {
+  //   html = data;
+  //   console.log(html);
+  //   res.render('homepage',{
+  //     html:html
+  //   });
   // });
-  // product.save()
-  // .then(()=> {
-  //   res.send("Works.Check DB");
-  // });
-  //res.send("HRE");
-  res.render('index');
-};
-
-exports.post_root = (req,res)=> {
-  Product.find().exec()
-  .then((products)=> {
-    res.render('index',{
-    productList:products
+  fs.readFile(path.join(__dirname,'../files','homepage.html'),(err,data)=> {
+    html = data;
+    res.render('homepage',{
+      html:html
     });
   });
   
 };
 
-exports.post_productCreate = (req,res) => {
-  const newProduct = new Product({
-    name:req.body.name,
-    price:req.body.price
-  });
-  newProduct.save()
-  .then(()=>{
-    res.send("Product Added");
-  });
+exports.get_editHomepage = (req,res)=> {
+  res.render('newapi');
 };
 
-exports.put_productUpdate = (req,res)=> {
-  let updatedName,updatedPrice;
-  if(req.body.name.length !== 0) updatedName = req.body.name;
-  if(req.body.price.length !== 0) updatedPrice = req.body.price;
-  
-  Product.findOne({name:req.body.oldName}).exec()
-  .then((product)=> {
-    if(updatedName)product.name=updatedName;
-    if(updatedPrice)product.price=updatedPrice;
-    product.save()
-    .then(res.send("Product Updated"));
+exports.post_saveHomePage = (req,res)=> {
+  fs.writeFile(path.join(__dirname,'../files/homepage.html'),convertDeltaToHtml(req.body),function(err){
+    if (err) throw err;
+    console.log('Saved!');
   });
-  
+  // fs.writeFile(path.join(__dirname,'../files/homepage.txt'),JSON.stringify(req.body),function(err){
+  //     if (err) throw err;
+  //     console.log('Saved!');
+  //   });
+  res.end();
 };
 
-exports.delete_productDelete = (req,res) => {
-  Product.deleteOne({name:req.body.name}).exec()
-  .then(res.send("Product Deleted"));
-};
